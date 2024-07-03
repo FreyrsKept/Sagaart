@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink as RouterNavLink } from 'react-router-dom';
 
-import { Box } from '@mui/material';
+import { Box, Button as MuiButton } from '@mui/material';
 import {
   logoSize,
   navButtonsRoutes,
@@ -9,6 +9,7 @@ import {
   signInButton,
   signUpButton,
   mainRoute,
+  appraisalText,
 } from './constants/data';
 import styles from './constants/styles';
 
@@ -21,18 +22,19 @@ import NavLink from '../../shared/ui/NavLink';
 import Button from '../../shared/ui/Button';
 import IconButton from '../../shared/ui/IconButton';
 import Logo from '../../shared/ui/Logo';
-import { NavLink as RouterNavLink } from 'react-router-dom';
 
 interface HeaderProps {
   isLoggedIn: boolean;
   handleSignUpOpen: () => void;
   handleSignInOpen: () => void;
+  handlePaidAppraisalOpen: () => void;
 }
 
 const Header: FC<HeaderProps> = ({
   isLoggedIn,
   handleSignUpOpen,
   handleSignInOpen,
+  handlePaidAppraisalOpen,
 }) => {
   return (
     <Box sx={styles.header}>
@@ -43,9 +45,32 @@ const Header: FC<HeaderProps> = ({
         <Box sx={styles.searchContainer}>
           <SearchInput />
           <Box sx={styles.navContainer}>
-            {navLinksData.map((link, i) => {
-              return <NavLink key={i} route={link.rout} text={link.text} />;
-            })}
+            <NavLink
+              route={navLinksData.main.rout}
+              text={navLinksData.main.text}
+            />
+            <NavLink
+              route={navLinksData.catalog.rout}
+              text={navLinksData.catalog.text}
+            />
+            <MuiButton
+              onClick={handlePaidAppraisalOpen}
+              sx={styles.appraisalButton}
+            >
+              {appraisalText}
+            </MuiButton>
+            <NavLink
+              route={navLinksData.pricing.rout}
+              text={navLinksData.pricing.text}
+            />
+            <NavLink
+              route={navLinksData.consultation.rout}
+              text={navLinksData.consultation.text}
+            />
+            <NavLink
+              route={navLinksData.news.rout}
+              text={navLinksData.news.text}
+            />
           </Box>
         </Box>
       </Box>
